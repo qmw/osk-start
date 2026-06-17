@@ -1,0 +1,952 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const navLinks = [
+  { href: "#o-szkole", label: "O nas" },
+  { href: "#kursy", label: "Kursy" },
+  { href: "#cennik", label: "Cennik" },
+  { href: "#instruktorzy", label: "Instruktorzy" },
+  { href: "#opinie", label: "Opinie" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+
+const stats = [
+  { value: 94, suffix: "%", label: "zdawalność" },
+  { value: 12, suffix: "+", label: "lat doświadczenia" },
+  { value: 3200, suffix: "+", label: "absolwentów" },
+  { value: 8, suffix: "", label: "instruktorów" },
+];
+
+const features = [
+  { icon: "🚗", title: "Nowoczesna flota", desc: "Samochody rocznik 2022–2024, klimatyzacja, podwójne pedały bezpieczeństwa." },
+  { icon: "📍", title: "Centrum Warszawy", desc: "Oddział przy ul. Marszałkowskiej — dojedziesz metrem, autobusem lub tramwajem." },
+  { icon: "🗓️", title: "Elastyczne terminy", desc: "Jazdy rano, po południu i w weekendy. Dopasuj grafik do siebie." },
+  { icon: "👨‍🏫", title: "Certyfikowani instruktorzy", desc: "Każdy instruktor z licencją MiR, przeszkolony w technikach motywacyjnych." },
+  { icon: "📱", title: "Zapisy online", desc: "Formularz 24/7, potwierdzenie SMS i e-mail. Zero kolejek w biurze." },
+  { icon: "🏆", title: "94% zdawalności", desc: "Powyżej średniej krajowej. Metodyka oparta na symulacjach egzaminu." },
+];
+
+const courses = [
+  {
+    id: "kat-b",
+    tag: "Najpopularniejszy",
+    icon: "🚗",
+    title: "Kurs kat. B",
+    subtitle: "Skrzynia manualna",
+    desc: "Pełny kurs na prawo jazdy kategorii B. 30 godzin teorii + 30 godzin jazdy praktycznej. Przygotowanie do egzaminu w WORD.",
+    details: ["30h teorii (online lub stacjonarnie)", "30h jazdy praktycznej", "Jazdy w mieście i na autostradzie", "2 x jazdy egzaminacyjne WORD", "Materiały do nauki w cenie"],
+    price: "2 400",
+    color: "blue",
+  },
+  {
+    id: "automat",
+    tag: "Szybciej i łatwiej",
+    icon: "⚙️",
+    title: "Kurs w automacie",
+    subtitle: "Skrzynia automatyczna",
+    desc: "Kurs na prawo jazdy kat. B na samochodzie z automatyczną skrzynią biegów. Idealne dla osób z tremą lub kontuzjami.",
+    details: ["30h teorii (online lub stacjonarnie)", "30h jazdy na automacie", "Nowoczesny Toyota Yaris Cross", "Egzamin tylko na automacie", "Możliwość zmiany na manualny +500 zł"],
+    price: "2 700",
+    color: "yellow",
+  },
+  {
+    id: "doszkalajace",
+    tag: "Dla posiadaczy prawa jazdy",
+    icon: "🔄",
+    title: "Jazdy doszkalające",
+    subtitle: "Dla istniejących kierowców",
+    desc: "Odśwież umiejętności jazdy, wyeliminuj złe nawyki lub przygotuj się do jazdy po dłuższej przerwie.",
+    details: ["Pakiet 5 jazd lub 10 jazd", "Ocena aktualnych umiejętności", "Jazda nocna lub autostradowa", "Parking i manewry", "Elastyczne terminy"],
+    price: "od 200",
+    color: "red",
+  },
+  {
+    id: "intensywny",
+    tag: "Ekspresowo",
+    icon: "⚡",
+    title: "Kurs intensywny",
+    subtitle: "2–3 tygodnie",
+    desc: "Cały kurs w błyskawicznym tempie. Teoria online w tydzień, jazdy codziennie rano. Dla zdecydowanych i zdyscyplinowanych.",
+    details: ["Teoria online (platforma 24/7)", "Jazdy codziennie lub co 2 dni", "Indywidualny harmonogram", "Priorytetowy termin egzaminu", "Opieka mentora w cenie"],
+    price: "2 900",
+    color: "blue",
+  },
+];
+
+const pricing = [
+  { label: "Kurs kat. B (manualna)", price: "2 400 zł", note: "teoria + 30h jazd" },
+  { label: "Kurs w automacie", price: "2 700 zł", note: "teoria + 30h jazd" },
+  { label: "Kurs intensywny", price: "2 900 zł", note: "pełny + priorytet egz." },
+  { label: "Pojedyncza jazda (60 min)", price: "150 zł", note: "po zdanym egzaminie" },
+  { label: "Jazda doszkalająca — pakiet 5", price: "700 zł", note: "5 × 60 min" },
+  { label: "Jazda doszkalająca — pakiet 10", price: "1 300 zł", note: "10 × 60 min, oszczędzasz 200 zł" },
+  { label: "Teoria online (bez jazd)", price: "300 zł", note: "dostęp 90 dni" },
+  { label: "Egzamin wewnętrzny", price: "gratis", note: "w cenie kursu" },
+];
+
+const instructors = [
+  {
+    name: "Marek Kowalski",
+    title: "Instruktor senior",
+    exp: "14 lat doświadczenia",
+    spec: "Jazda w trudnych warunkach, manewr parkowania",
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    emoji: "👨‍💼",
+  },
+  {
+    name: "Anna Wiśniewska",
+    title: "Instruktorka",
+    exp: "8 lat doświadczenia",
+    spec: "Techniki obronne, kurs intensywny",
+    img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    emoji: "👩‍💼",
+  },
+  {
+    name: "Piotr Nowak",
+    title: "Instruktor",
+    exp: "6 lat doświadczenia",
+    spec: "Automat, jazda po autostradzie",
+    img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+    emoji: "👨‍🔧",
+  },
+  {
+    name: "Katarzyna Zając",
+    title: "Instruktorka",
+    exp: "5 lat doświadczenia",
+    spec: "Kursanci z tremą, jazdy nocne",
+    img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    emoji: "👩‍🏫",
+  },
+];
+
+const reviews = [
+  {
+    name: "Karolina M.",
+    rating: 5,
+    text: "Zdałam egzamin za pierwszym razem! Pani Anna była super cierpliwa i bardzo profesjonalna. Polecam OSK Start z czystym sumieniem 🚗",
+    date: "Marzec 2025",
+    course: "Kurs kat. B",
+  },
+  {
+    name: "Damian W.",
+    rating: 5,
+    text: "Wybrałem kurs intensywny i w 3 tygodnie byłem po egzaminie. Wszystko sprawnie zorganizowane, instruktor Marek to prawdziwy pro.",
+    date: "Luty 2025",
+    course: "Kurs intensywny",
+  },
+  {
+    name: "Zofia K.",
+    rating: 5,
+    text: "Miałam dużą tremę przed jazdą, ale Kasia (instruktorka) całkowicie ją rozwiała. Spokojna, konkretna, wytłumaczyła każdy manewr. Dziękuję!",
+    date: "Kwiecień 2025",
+    course: "Kurs w automacie",
+  },
+  {
+    name: "Tomasz B.",
+    rating: 5,
+    text: "Cena konkurencyjna, biuro zawsze dostępne, terminy elastyczne. Sam polecałem już 3 osobom z pracy. Nie ma lepszej szkoły jazdy w centrum.",
+    date: "Styczeń 2025",
+    course: "Kurs kat. B",
+  },
+  {
+    name: "Marta R.",
+    rating: 5,
+    text: "Wróciłam po 5 latach przerwy od jazdy. Jazdy doszkalające z panem Piotrem totalnie przywróciły mi pewność. Czuję się teraz bezpiecznie na drodze.",
+    date: "Maj 2025",
+    course: "Jazdy doszkalające",
+  },
+  {
+    name: "Łukasz S.",
+    rating: 4,
+    text: "Dobra szkoła, profesjonalne podejście. Jedyna drobna uwaga to parking przy biurze — ale sala teorii super i platforma online naprawdę wygodna.",
+    date: "Kwiecień 2025",
+    course: "Kurs kat. B",
+  },
+];
+
+const schedule = [
+  { day: "Poniedziałek – Piątek", hours: "7:00 – 21:00" },
+  { day: "Sobota", hours: "8:00 – 18:00" },
+  { day: "Niedziela", hours: "9:00 – 15:00" },
+];
+---
+
+<Layout>
+  <!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
+  <header id="nav" class="fixed left-0 right-0 z-50 transition-all duration-300" style="top: 2.25rem">
+    <nav class="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-800 text-sm leading-none"
+             style="background: var(--color-yellow); color: var(--color-dark);">
+          L
+        </div>
+        <span class="font-display font-700 text-xl" style="color: var(--color-dark);">
+          OSK <span style="color: var(--color-blue);">Start</span>
+        </span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden lg:flex items-center gap-1">
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href}
+               class="px-4 py-2 rounded-lg text-sm font-medium font-body transition-all duration-200 hover:bg-blue-50"
+               style="color: var(--color-dark-mid);">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA + burger -->
+      <div class="flex items-center gap-3">
+        <a href="#zapisy"
+           class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-display font-700 transition-all duration-200 hover:scale-105 hover:shadow-lg pulse-glow"
+           style="background: var(--color-blue); color: #fff;">
+          Zapisz się →
+        </a>
+        <button id="burger" class="lg:hidden p-2 rounded-lg" style="color: var(--color-dark);" aria-label="Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h18M3 17h18" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t" style="background: rgba(255,255,255,0.98); border-color: var(--color-gray-light);">
+      <div class="container mx-auto px-4 py-4 flex flex-col gap-1">
+        {navLinks.map(link => (
+          <a href={link.href}
+             class="px-4 py-3 rounded-lg text-sm font-medium hover:bg-blue-50"
+             style="color: var(--color-dark-mid);">
+            {link.label}
+          </a>
+        ))}
+        <a href="#zapisy"
+           class="mt-2 px-4 py-3 rounded-xl text-sm font-display font-700 text-center"
+           style="background: var(--color-blue); color: #fff;">
+          Zapisz się →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scrolled nav style -->
+  <style>
+    #nav.scrolled {
+      background: color-mix(in srgb, #ffffff 95%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-gray-light);
+      box-shadow: 0 2px 20px rgba(21,32,58,0.08);
+    }
+  </style>
+
+  <main>
+    <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+    <section id="hero"
+             class="relative min-h-screen flex flex-col justify-center overflow-hidden"
+             style="background: var(--color-dark); padding-top: 8rem;">
+
+      <!-- Background image -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80"
+          alt="Droga z samochodem"
+          class="w-full h-full object-cover opacity-30"
+        />
+        <div class="absolute inset-0"
+             style="background: linear-gradient(135deg, rgba(21,32,58,0.95) 0%, rgba(29,78,216,0.6) 60%, rgba(21,32,58,0.85) 100%);"></div>
+        <!-- Speed lines overlay -->
+        <div class="absolute inset-0 opacity-10"
+             style="background-image: repeating-linear-gradient(170deg, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4) 1px, transparent 1px, transparent 40px);"></div>
+      </div>
+
+      <!-- Road stripe top -->
+      <div class="absolute top-0 left-0 right-0 z-10 road-stripe opacity-60"></div>
+
+      <!-- Floating L badge -->
+      <div class="float-badge absolute top-36 right-8 md:right-24 z-10 hidden md:flex">
+        <div class="w-24 h-24 rounded-2xl flex items-center justify-center text-5xl font-display font-800 shadow-2xl border-4"
+             style="background: var(--color-yellow); color: var(--color-dark); border-color: rgba(255,255,255,0.3); transform: rotate(-8deg);">
+          L
+        </div>
+      </div>
+
+      <!-- Hero content -->
+      <div class="relative z-10 container mx-auto px-4 sm:px-6 py-16">
+        <div class="max-w-3xl">
+          <!-- Badge -->
+          <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-display font-600 mb-6 tracking-wide uppercase"
+               style="background: rgba(250,204,21,0.15); color: var(--color-yellow); border: 1px solid rgba(250,204,21,0.3);">
+            🏆 Zdawalność 94% — powyżej średniej krajowej
+          </div>
+
+          <h1 class="reveal delay-1 font-display text-5xl sm:text-6xl lg:text-7xl font-800 leading-none mb-6"
+              style="color: #fff;">
+            Ruszaj z nami<br />
+            <span style="color: var(--color-yellow);">na drogę</span><br />
+            do sukcesu!
+          </h1>
+
+          <p class="reveal delay-2 text-lg sm:text-xl max-w-xl mb-8 leading-relaxed"
+             style="color: rgba(255,255,255,0.75);">
+            Nowoczesna szkoła jazdy w centrum Warszawy. Kurs kat. B, jazdy w automacie,
+            intensywny kurs — Ty wybierasz tempo, my zadbamy o resztę.
+          </p>
+
+          <div class="reveal delay-3 flex flex-col sm:flex-row gap-4 mb-16">
+            <a href="#zapisy"
+               class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-display font-700 transition-all duration-200 hover:scale-105 hover:shadow-2xl"
+               style="background: var(--color-yellow); color: var(--color-dark);">
+              🚀 Zapisz się na kurs
+            </a>
+            <a href="#kursy"
+               class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-display font-600 transition-all duration-200 hover:scale-105"
+               style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+              Zobacz kursy →
+            </a>
+          </div>
+
+          <!-- Stats bar -->
+          <div class="reveal delay-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {stats.map((s, i) => (
+              <div class="text-center p-4 rounded-2xl" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                <div class="font-display font-800 text-3xl sm:text-4xl"
+                     style="color: var(--color-yellow);"
+                     data-counter={s.value}
+                     data-suffix={s.suffix}>
+                  0{s.suffix}
+                </div>
+                <div class="text-xs font-medium mt-1 uppercase tracking-wider"
+                     style="color: rgba(255,255,255,0.55);">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom road stripe -->
+      <div class="absolute bottom-0 left-0 right-0 z-10 road-stripe opacity-60"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ O SZKOLE ═══════════════════════════════════════ -->
+    <section id="o-szkole" class="py-24 relative overflow-hidden speed-lines" style="background: var(--color-white);">
+      <!-- Decorative sign shape -->
+      <div class="absolute top-12 right-0 w-64 h-64 rounded-l-full opacity-5"
+           style="background: var(--color-blue);"></div>
+
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Left: image + badge -->
+          <div class="reveal-left relative">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl"
+                 style="background: var(--color-light);">
+              <img
+                src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80"
+                alt="Instruktor i kursant w samochodzie"
+                class="w-full h-80 lg:h-96 object-cover"
+              />
+              <!-- Overlay badge -->
+              <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl"
+                   style="background: rgba(21,32,58,0.9); backdrop-filter: blur(8px);">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                       style="background: var(--color-yellow);">🏆</div>
+                  <div>
+                    <div class="font-display font-700 text-sm" style="color: #fff;">Certyfikowana szkoła jazdy</div>
+                    <div class="text-xs mt-0.5" style="color: rgba(255,255,255,0.6);">Licencja MiR nr 2341/W/2012</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating stat -->
+            <div class="absolute -top-6 -right-6 w-28 h-28 rounded-2xl flex flex-col items-center justify-center shadow-xl hidden md:flex"
+                 style="background: var(--color-blue); transform: rotate(6deg);">
+              <span class="font-display font-800 text-3xl" style="color: var(--color-yellow);">94%</span>
+              <span class="text-xs font-600 text-center leading-tight mt-1 px-2" style="color: rgba(255,255,255,0.8);">zdawal-<br/>ność</span>
+            </div>
+          </div>
+
+          <!-- Right: text -->
+          <div class="reveal-right">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+                 style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+              🚗 O nas
+            </div>
+            <h2 class="font-display font-800 text-4xl sm:text-5xl leading-tight mb-6"
+                style="color: var(--color-dark);">
+              Więcej niż<br />
+              <span style="color: var(--color-blue);">szkoła jazdy</span>
+            </h2>
+            <p class="text-lg leading-relaxed mb-6" style="color: var(--color-dark-mid);">
+              OSK Start działa w Warszawie od 2012 roku. Przez ponad dekadę przeprowadziliśmy
+              przez egzamin ponad <strong>3 200 kursantów</strong> — z wynikiem zdawalności
+              na poziomie <strong>94%</strong>, który bije średnią krajową (58%).
+            </p>
+            <p class="leading-relaxed mb-8" style="color: var(--color-gray);">
+              Wierzymy, że dobra nauka jazdy to nie tylko technika — to budowanie pewności siebie
+              za kierownicą. Dlatego każdy kursant dostaje własnego instruktora-mentora, małe
+              grupy teorii i indywidualny plan jazd.
+            </p>
+
+            <!-- Features grid -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              {features.map((f, i) => (
+                <div class={`reveal delay-${i % 3 + 1} flex items-start gap-3 p-4 rounded-2xl card-lift`}
+                     style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+                  <span class="text-2xl flex-shrink-0">{f.icon}</span>
+                  <div>
+                    <div class="font-display font-700 text-sm mb-1" style="color: var(--color-dark);">{f.title}</div>
+                    <div class="text-xs leading-relaxed" style="color: var(--color-gray);">{f.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ KURSY ═══════════════════════════════════════ -->
+    <section id="kursy" class="py-24 relative overflow-hidden clip-diagonal"
+             style="background: var(--color-dark); padding-bottom: 8rem;">
+
+      <!-- Road texture overlay -->
+      <div class="absolute inset-0 opacity-10"
+           style="background-image: repeating-linear-gradient(90deg, rgba(250,204,21,0.5) 0, rgba(250,204,21,0.5) 2px, transparent 2px, transparent 80px);"></div>
+
+      <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center mb-14">
+          <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+               style="background: rgba(250,204,21,0.15); color: var(--color-yellow);">
+            📋 Oferta
+          </div>
+          <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-4" style="color: #fff;">
+            Wybierz swój <span style="color: var(--color-yellow);">kurs</span>
+          </h2>
+          <p class="reveal delay-2 text-lg max-w-xl mx-auto" style="color: rgba(255,255,255,0.6);">
+            Mamy kurs dla każdego — niezależnie od tempa, budżetu i harmonogramu.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {courses.map((c, i) => (
+            <div class={`reveal delay-${i + 1} relative rounded-3xl overflow-hidden card-lift`}
+                 style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+
+              <!-- Top color bar -->
+              <div class="h-1" style={`background: var(--color-${c.color === 'yellow' ? 'yellow' : c.color === 'red' ? 'red' : 'blue'});`}></div>
+
+              <div class="p-6">
+                <!-- Tag -->
+                <div class="inline-flex px-2.5 py-1 rounded-full text-xs font-600 mb-4"
+                     style={`background: rgba(${c.color === 'yellow' ? '250,204,21' : c.color === 'red' ? '239,68,68' : '29,78,216'},.15); color: var(--color-${c.color === 'yellow' ? 'yellow' : c.color === 'red' ? 'red' : 'blue'});`}>
+                  {c.tag}
+                </div>
+
+                <div class="text-3xl mb-3">{c.icon}</div>
+                <h3 class="font-display font-800 text-xl mb-1" style="color: #fff;">{c.title}</h3>
+                <p class="text-xs font-600 mb-3 uppercase tracking-wide"
+                   style={`color: var(--color-${c.color === 'yellow' ? 'yellow' : c.color === 'red' ? 'red' : 'blue'});`}>
+                  {c.subtitle}
+                </p>
+                <p class="text-sm leading-relaxed mb-4" style="color: rgba(255,255,255,0.6);">{c.desc}</p>
+
+                <ul class="space-y-2 mb-6">
+                  {c.details.map(d => (
+                    <li class="flex items-start gap-2 text-xs" style="color: rgba(255,255,255,0.75);">
+                      <span class="mt-0.5 flex-shrink-0" style="color: var(--color-yellow);">✓</span>
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="pt-4 border-t flex items-end justify-between" style="border-color: rgba(255,255,255,0.1);">
+                  <div>
+                    <div class="text-xs mb-0.5" style="color: rgba(255,255,255,0.4);">cena od</div>
+                    <div class="font-display font-800 text-2xl" style="color: #fff;">{c.price} zł</div>
+                  </div>
+                  <a href="#zapisy"
+                     class="px-4 py-2 rounded-xl text-xs font-display font-700 transition-all hover:scale-105"
+                     style={`background: var(--color-${c.color === 'yellow' ? 'yellow' : c.color === 'red' ? 'red' : 'blue'}); color: ${c.color === 'yellow' ? 'var(--color-dark)' : '#fff'};`}>
+                    Zapisz się
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CENNIK ═══════════════════════════════════════ -->
+    <section id="cennik" class="py-24 relative" style="background: var(--color-light); margin-top: -4rem;">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-14">
+          <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+               style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+            💰 Cennik
+          </div>
+          <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-4" style="color: var(--color-dark);">
+            Przejrzyste <span style="color: var(--color-blue);">ceny</span>
+          </h2>
+          <p class="reveal delay-2 text-lg max-w-xl mx-auto" style="color: var(--color-gray);">
+            Bez ukrytych opłat. Cena zawiera wszystko co potrzebujesz do egzaminu.
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="rounded-3xl overflow-hidden shadow-xl" style="background: #fff; border: 1px solid var(--color-gray-light);">
+            {pricing.map((item, i) => (
+              <div class={`reveal delay-${(i % 4) + 1} flex items-center justify-between px-6 py-4 transition-colors hover:bg-blue-50 ${i < pricing.length - 1 ? 'border-b' : ''}`}
+                   style={`border-color: var(--color-gray-light);`}>
+                <div>
+                  <div class="font-display font-600 text-sm sm:text-base" style="color: var(--color-dark);">{item.label}</div>
+                  <div class="text-xs mt-0.5" style="color: var(--color-gray);">{item.note}</div>
+                </div>
+                <div class="font-display font-800 text-lg sm:text-xl flex-shrink-0 ml-4"
+                     style={`color: ${item.price === 'gratis' ? 'var(--color-blue)' : 'var(--color-dark)'};`}>
+                  {item.price}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Info box -->
+          <div class="reveal mt-6 p-5 rounded-2xl flex items-start gap-3"
+               style="background: rgba(29,78,216,0.07); border: 1px solid rgba(29,78,216,0.15);">
+            <span class="text-xl flex-shrink-0">ℹ️</span>
+            <p class="text-sm leading-relaxed" style="color: var(--color-dark-mid);">
+              <strong>Możliwość płatności w ratach</strong> bez odsetek (3 lub 6 rat) przy kursach podstawowych.
+              Akceptujemy karty płatnicze, przelew i BLIK. Faktura VAT na życzenie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ INSTRUKTORZY ═══════════════════════════════════════ -->
+    <section id="instruktorzy" class="py-24 relative overflow-hidden" style="background: var(--color-white);">
+      <!-- Dashed center line decoration -->
+      <div class="absolute left-1/2 top-0 bottom-0 w-px opacity-10 road-stripe-vert hidden xl:block"></div>
+
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-14">
+          <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+               style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+            👥 Zespół
+          </div>
+          <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-4" style="color: var(--color-dark);">
+            Twoi <span style="color: var(--color-blue);">instruktorzy</span>
+          </h2>
+          <p class="reveal delay-2 text-lg max-w-xl mx-auto" style="color: var(--color-gray);">
+            Certyfikowani, doświadczeni i — co ważne — cierpliwi. Każdy z naszych instruktorów to
+            nie tylko ekspert techniki jazdy, ale też skuteczny mentor.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {instructors.map((instr, i) => (
+            <div class={`reveal delay-${i + 1} instructor-card rounded-3xl overflow-hidden card-lift`}
+                 style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+              <div class="relative overflow-hidden" style="height: 220px;">
+                <img
+                  src={instr.img}
+                  alt={instr.name}
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+                <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(21,32,58,0.5) 0%, transparent 60%);"></div>
+              </div>
+              <div class="p-5">
+                <div class="font-display font-700 text-lg" style="color: var(--color-dark);">{instr.name}</div>
+                <div class="text-sm font-600 mb-1" style="color: var(--color-blue);">{instr.title}</div>
+                <div class="text-xs mb-3" style="color: var(--color-gray);">{instr.exp}</div>
+                <div class="text-xs leading-relaxed p-3 rounded-xl"
+                     style="background: rgba(29,78,216,0.06); color: var(--color-dark-mid);">
+                  🎯 {instr.spec}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ ZAPISY / TERMINY ═══════════════════════════════════════ -->
+    <section id="zapisy" class="py-24 relative overflow-hidden"
+             style="background: var(--color-dark);">
+
+      <!-- Background -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1920&q=80"
+          alt="Widok z samochodu na drogę"
+          class="w-full h-full object-cover opacity-10"
+        />
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, var(--color-dark) 60%, var(--color-blue-deeper));"></div>
+      </div>
+
+      <div class="road-stripe absolute top-0 left-0 right-0 opacity-40 z-10"></div>
+
+      <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+
+          <!-- Left: info -->
+          <div>
+            <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+                 style="background: rgba(250,204,21,0.15); color: var(--color-yellow);">
+              📅 Zapisy
+            </div>
+            <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-6" style="color: #fff;">
+              Zacznij już<br /><span style="color: var(--color-yellow);">dziś</span>
+            </h2>
+            <p class="reveal delay-2 text-lg leading-relaxed mb-8" style="color: rgba(255,255,255,0.7);">
+              Wypełnij formularz — oddzwonimy w ciągu 1 godziny roboczej (w godzinach pracy)
+              i ustalimy Twój harmonogram jazd.
+            </p>
+
+            <!-- Hours -->
+            <div class="reveal delay-3 mb-8">
+              <div class="font-display font-700 text-sm uppercase tracking-wider mb-3" style="color: var(--color-yellow);">
+                Godziny pracy biura
+              </div>
+              <div class="space-y-2">
+                {schedule.map(s => (
+                  <div class="flex justify-between items-center py-2 border-b" style="border-color: rgba(255,255,255,0.1);">
+                    <span class="text-sm" style="color: rgba(255,255,255,0.7);">{s.day}</span>
+                    <span class="font-display font-700 text-sm" style="color: #fff;">{s.hours}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Contact quick -->
+            <div class="reveal delay-4 flex flex-col gap-3">
+              <a href="tel:+48221234567"
+                 class="flex items-center gap-3 p-4 rounded-2xl transition-colors hover:bg-white/10"
+                 style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                     style="background: var(--color-yellow);">📞</div>
+                <div>
+                  <div class="text-xs mb-0.5" style="color: rgba(255,255,255,0.5);">Telefon</div>
+                  <div class="font-display font-700" style="color: #fff;">+48 22 123 45 67</div>
+                </div>
+              </a>
+              <a href="mailto:zapisz@osk-start.pl"
+                 class="flex items-center gap-3 p-4 rounded-2xl transition-colors hover:bg-white/10"
+                 style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                     style="background: var(--color-blue);">✉️</div>
+                <div>
+                  <div class="text-xs mb-0.5" style="color: rgba(255,255,255,0.5);">E-mail</div>
+                  <div class="font-display font-700" style="color: #fff;">zapisz@osk-start.pl</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div class="reveal-right">
+            <div class="p-8 rounded-3xl" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(12px);">
+              <h3 class="font-display font-700 text-xl mb-6" style="color: #fff;">Formularz zapisu</h3>
+              <form class="space-y-4" onsubmit="event.preventDefault(); this.innerHTML='<div class=\'text-center py-8\'><div class=\'text-4xl mb-3\'>✅</div><div class=\'font-display font-700 text-xl text-white\'>Zapisano!</div><p class=\'text-sm mt-2\' style=\'color:rgba(255,255,255,0.6)\'>Odezwiemy się w ciągu godziny.</p></div>';">
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">Imię i nazwisko *</label>
+                    <input type="text" required placeholder="np. Jan Kowalski"
+                           class="w-full px-4 py-3 rounded-xl text-sm transition-all"
+                           style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">Telefon *</label>
+                    <input type="tel" required placeholder="+48 600 000 000"
+                           class="w-full px-4 py-3 rounded-xl text-sm transition-all"
+                           style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">E-mail</label>
+                  <input type="email" placeholder="jan@example.com"
+                         class="w-full px-4 py-3 rounded-xl text-sm transition-all"
+                         style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;" />
+                </div>
+                <div>
+                  <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">Rodzaj kursu *</label>
+                  <select required
+                          class="w-full px-4 py-3 rounded-xl text-sm transition-all"
+                          style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;">
+                    <option value="" style="background: var(--color-dark);">— wybierz kurs —</option>
+                    <option value="kat-b" style="background: var(--color-dark);">Kurs kat. B (manualna)</option>
+                    <option value="automat" style="background: var(--color-dark);">Kurs w automacie</option>
+                    <option value="intensywny" style="background: var(--color-dark);">Kurs intensywny</option>
+                    <option value="doszkalajace" style="background: var(--color-dark);">Jazdy doszkalające</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">Preferowane godziny</label>
+                  <select class="w-full px-4 py-3 rounded-xl text-sm"
+                          style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;">
+                    <option value="" style="background: var(--color-dark);">— elastyczne —</option>
+                    <option value="rano" style="background: var(--color-dark);">Rano (7:00 – 12:00)</option>
+                    <option value="popoł" style="background: var(--color-dark);">Popołudnie (12:00 – 18:00)</option>
+                    <option value="wieczor" style="background: var(--color-dark);">Wieczór (18:00 – 21:00)</option>
+                    <option value="weekend" style="background: var(--color-dark);">Weekendy</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-600 mb-1.5 uppercase tracking-wide" style="color: rgba(255,255,255,0.6);">Uwagi (opcjonalnie)</label>
+                  <textarea rows={3} placeholder="Czy masz już teorię? Preferujesz płatność ratalną? Napisz co chcesz..."
+                            class="w-full px-4 py-3 rounded-xl text-sm resize-none transition-all"
+                            style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;"></textarea>
+                </div>
+                <button type="submit"
+                        class="w-full py-4 rounded-xl font-display font-700 text-base transition-all hover:scale-105 hover:shadow-xl"
+                        style="background: var(--color-yellow); color: var(--color-dark);">
+                  🚀 Wyślij zgłoszenie
+                </button>
+                <p class="text-xs text-center" style="color: rgba(255,255,255,0.4);">
+                  Oddzwonimy w ciągu 1 godziny (pon–pt 8–20). Dane są bezpieczne.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="road-stripe absolute bottom-0 left-0 right-0 opacity-40 z-10"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ OPINIE ═══════════════════════════════════════ -->
+    <section id="opinie" class="py-24 relative overflow-hidden" style="background: var(--color-light);">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-14">
+          <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+               style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+            ⭐ Opinie
+          </div>
+          <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-4" style="color: var(--color-dark);">
+            Co mówią <span style="color: var(--color-blue);">kursanci</span>
+          </h2>
+          <p class="reveal delay-2 text-lg max-w-xl mx-auto" style="color: var(--color-gray);">
+            Ponad 3 200 absolwentów. Nasze wyniki mówią same za siebie.
+          </p>
+
+          <!-- Google rating summary -->
+          <div class="reveal delay-3 inline-flex items-center gap-3 mt-6 px-6 py-3 rounded-2xl"
+               style="background: #fff; border: 1px solid var(--color-gray-light); box-shadow: 0 4px 16px rgba(21,32,58,0.08);">
+            <div class="font-display font-800 text-3xl" style="color: var(--color-dark);">4.9</div>
+            <div class="flex gap-0.5">
+              {"⭐⭐⭐⭐⭐".split("").map(s => <span>{s}</span>)}
+            </div>
+            <div class="text-xs" style="color: var(--color-gray);">
+              <div class="font-600" style="color: var(--color-dark);">Google Maps</div>
+              <div>247 opinii</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {reviews.map((r, i) => (
+            <div class={`reveal delay-${(i % 3) + 1} p-6 rounded-3xl card-lift`}
+                 style="background: #fff; border: 1px solid var(--color-gray-light);">
+              <!-- Stars -->
+              <div class="flex gap-0.5 mb-4">
+                {Array.from({length: r.rating}).map(() => <span class="text-lg">⭐</span>)}
+              </div>
+              <p class="text-sm leading-relaxed mb-5" style="color: var(--color-dark-mid);">„{r.text}"</p>
+              <div class="flex items-center justify-between pt-4 border-t" style="border-color: var(--color-gray-light);">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center font-display font-700 text-xs"
+                       style="background: var(--color-blue); color: #fff;">
+                    {r.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div class="font-display font-700 text-sm" style="color: var(--color-dark);">{r.name}</div>
+                    <div class="text-xs" style="color: var(--color-gray);">{r.date}</div>
+                  </div>
+                </div>
+                <div class="text-xs px-2.5 py-1 rounded-full font-600"
+                     style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+                  {r.course}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ KONTAKT + MAPA ═══════════════════════════════════════ -->
+    <section id="kontakt" class="py-24 relative overflow-hidden" style="background: var(--color-white);">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-14">
+          <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-600 uppercase tracking-wider mb-4"
+               style="background: rgba(29,78,216,0.08); color: var(--color-blue);">
+            📍 Kontakt
+          </div>
+          <h2 class="reveal delay-1 font-display font-800 text-4xl sm:text-5xl mb-4" style="color: var(--color-dark);">
+            Znajdź nas<br /><span style="color: var(--color-blue);">w Warszawie</span>
+          </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8 items-start">
+          <!-- Contact cards -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="reveal p-5 rounded-2xl card-lift" style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                     style="background: var(--color-blue); color: #fff; font-size: 1.1rem;">📍</div>
+                <div class="font-display font-700" style="color: var(--color-dark);">Adres</div>
+              </div>
+              <p class="text-sm ml-13 pl-0.5" style="color: var(--color-gray);">
+                ul. Marszałkowska 84/92<br />00-514 Warszawa<br />(wejście od ul. Wspólnej)
+              </p>
+            </div>
+
+            <div class="reveal delay-1 p-5 rounded-2xl card-lift" style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                     style="background: var(--color-yellow); color: var(--color-dark); font-size: 1.1rem;">📞</div>
+                <div class="font-display font-700" style="color: var(--color-dark);">Telefon</div>
+              </div>
+              <a href="tel:+48221234567" class="text-sm hover:underline" style="color: var(--color-blue);">+48 22 123 45 67</a>
+              <div class="text-xs mt-1" style="color: var(--color-gray);">pon–pt 7–21, sob 8–18, ndz 9–15</div>
+            </div>
+
+            <div class="reveal delay-2 p-5 rounded-2xl card-lift" style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                     style="background: var(--color-red); color: #fff; font-size: 1.1rem;">✉️</div>
+                <div class="font-display font-700" style="color: var(--color-dark);">E-mail</div>
+              </div>
+              <a href="mailto:kontakt@osk-start.pl" class="text-sm hover:underline" style="color: var(--color-blue);">kontakt@osk-start.pl</a>
+              <div class="text-xs mt-1" style="color: var(--color-gray);">Odpowiadamy w ciągu 2h</div>
+            </div>
+
+            <div class="reveal delay-3 p-5 rounded-2xl card-lift" style="background: var(--color-light); border: 1px solid var(--color-gray-light);">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                     style="background: var(--color-dark); color: #fff; font-size: 1.1rem;">🚇</div>
+                <div class="font-display font-700" style="color: var(--color-dark);">Dojazd</div>
+              </div>
+              <ul class="text-xs space-y-1.5" style="color: var(--color-gray);">
+                <li>🟠 Metro M1 — Centrum (3 min pieszo)</li>
+                <li>🔵 Tramwaje: linie 4, 15, 18, 35</li>
+                <li>🟢 Autobusy: 160, 174, 175, 180</li>
+                <li>🅿️ Parking — Złote Tarasy (200 m)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="reveal-right lg:col-span-3 rounded-3xl overflow-hidden shadow-xl"
+               style="height: 460px; border: 1px solid var(--color-gray-light);">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=21.00%2C52.22%2C21.03%2C52.24&layer=mapnik&marker=52.2295%2C21.0122"
+              width="100%"
+              height="100%"
+              style="border: 0;"
+              loading="lazy"
+              title="Mapa dojazdu do OSK Start — Warszawa, ul. Marszałkowska"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CTA BANNER ═══════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background: var(--color-blue);">
+      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 60px);"></div>
+      <div class="road-stripe absolute top-0 left-0 right-0 opacity-50"></div>
+      <div class="road-stripe absolute bottom-0 left-0 right-0 opacity-50"></div>
+
+      <div class="container mx-auto px-4 sm:px-6 relative z-10 text-center">
+        <div class="reveal text-5xl mb-4">🏁</div>
+        <h2 class="reveal delay-1 font-display font-800 text-3xl sm:text-4xl mb-4" style="color: #fff;">
+          Gotowy ruszyć na drogę?
+        </h2>
+        <p class="reveal delay-2 text-lg mb-8" style="color: rgba(255,255,255,0.8);">
+          Dołącz do ponad 3 200 absolwentów OSK Start. Pierwsze miejsce jest wolne.
+        </p>
+        <a href="#zapisy"
+           class="reveal delay-3 inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-display font-700 text-lg transition-all hover:scale-105 hover:shadow-2xl"
+           style="background: var(--color-yellow); color: var(--color-dark);">
+          🚗 Zapisz się teraz — to nic nie kosztuje
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+  <footer style="background: var(--color-dark);" class="relative overflow-hidden">
+    <div class="road-stripe opacity-50"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-800 text-sm"
+                 style="background: var(--color-yellow); color: var(--color-dark);">L</div>
+            <span class="font-display font-700 text-xl" style="color: #fff;">OSK <span style="color: var(--color-yellow);">Start</span></span>
+          </div>
+          <p class="text-sm leading-relaxed mb-4 max-w-xs" style="color: rgba(255,255,255,0.55);">
+            Ośrodek szkolenia kierowców w centrum Warszawy. Od 2012 roku pomagamy
+            tysiącom Polaków zdobyć prawo jazdy.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-colors hover:opacity-80"
+               style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);">f</a>
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-colors hover:opacity-80"
+               style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);">in</a>
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-colors hover:opacity-80"
+               style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);">▶</a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <div class="font-display font-700 text-sm uppercase tracking-wider mb-4" style="color: var(--color-yellow);">Nawigacja</div>
+          <ul class="space-y-2">
+            {navLinks.map(l => (
+              <li>
+                <a href={l.href} class="text-sm transition-colors hover:opacity-80" style="color: rgba(255,255,255,0.6);">{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-display font-700 text-sm uppercase tracking-wider mb-4" style="color: var(--color-yellow);">Kontakt</div>
+          <ul class="space-y-3 text-sm" style="color: rgba(255,255,255,0.6);">
+            <li>📍 ul. Marszałkowska 84/92<br />&nbsp;&nbsp;&nbsp;&nbsp;00-514 Warszawa</li>
+            <li><a href="tel:+48221234567" class="hover:text-white transition-colors">📞 +48 22 123 45 67</a></li>
+            <li><a href="mailto:kontakt@osk-start.pl" class="hover:text-white transition-colors">✉️ kontakt@osk-start.pl</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4"
+           style="border-color: rgba(255,255,255,0.08);">
+        <p class="text-xs" style="color: rgba(255,255,255,0.35);">
+          © 2025 OSK Start. Wszelkie prawa zastrzeżone. Licencja MiR nr 2341/W/2012.
+        </p>
+
+        <!-- OBOWIĄZKOWY CREDIT -->
+        <a href="https://stronainternetowa.biz" target="_blank" rel="noopener"
+           class="text-xs transition-opacity hover:opacity-100"
+           style="color: rgba(255,255,255,0.35);">
+          Przykładowa strona zrobiona przez <strong style="color: var(--color-yellow); font-weight: 700;">stronainternetowa.biz</strong>
+        </a>
+      </div>
+    </div>
+  </footer>
+</Layout>
