@@ -1,7 +1,7 @@
 # OSK Start — Szkoła Jazdy
 
 Strona demonstracyjna dla ośrodka szkolenia kierowców OSK Start. Projekt wykonany
-jako część portfolio witryn wizytówkowych na [stronainternetowa.biz](https://stronainternetowa.biz).
+jako część portfolio witryn wizytówkowych na [100strona.pl](https://100strona.pl).
 
 ## Styl
 
@@ -11,7 +11,7 @@ jako część portfolio witryn wizytówkowych na [stronainternetowa.biz](https:/
 
 ## Sekcje
 
-1. Promo bar (link do stronainternetowa.biz)
+1. Promo bar (link do 100strona.pl)
 2. Nawigacja (fixed, mobile menu, efekt scroll)
 3. Hero (pełnoekranowy, statystyki zdawalności z animacją liczników)
 4. O szkole (przewagi, certyfikaty)
